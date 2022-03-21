@@ -16,20 +16,18 @@ public class AdapterPages extends FragmentStateAdapter {
     public Fragment createFragment(int position){
         switch (position){
             case 0:
-                return new usuarioFrag();
+                return new playas();
             case 1:
-                return new inicioFrag();
+                return new piscinas();
             case 2:
-                return new favoritosFrag();
-            case 3:
-                return new popularFragment();
+                return new all();
             default:
-                return new chatsFragment();
+                return new playas();
         }
     }
 
     @Override
     public int getItemCount() {
-        return 4;
+        return 0;
     }
 }

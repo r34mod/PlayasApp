@@ -9,6 +9,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
@@ -46,9 +47,31 @@ public class Ajustes extends AppCompatActivity {
                 }
         );
 
-        navigationView.getMenu().findItem(R.id.nav_sesion).setOnMenuItemClickListener((menuItem)->{
+        navigationView.getMenu().findItem(R.id.nav_sesion).setOnMenuItemClickListener(
+                (menuItem)->{
+                    FirebaseAuth.getInstance().signOut();
+                    Toast.makeText(Ajustes.this, "Sesion cerrada", Toast.LENGTH_SHORT).show();
+                    Intent a = new Intent(Ajustes.this, MainActivity.class);
+                    a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(a);
 
-        })
+                    return false;
+        });
+
+        navigationView.getMenu().findItem(R.id.nav_fav).setOnMenuItemClickListener(
+                (menuItem)-> {
+                    Intent a = new Intent(Ajustes.this, MainActivity.class);
+                    startActivity(a);
+                    return false;
+                });
+
+        navigationView.getMenu().findItem(R.id.nav_perfil).setOnMenuItemClickListener(
+                (menuItem)->{
+                    Intent b = new Intent(Ajustes.this, MainActivity.class);
+                    startActivity(b);
+                    return false;
+                }
+        );
 
     }
 
