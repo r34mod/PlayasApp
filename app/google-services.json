@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "739558426542",
+    "project_id": "proyectoplayas-6aaa0",
+    "storage_bucket": "proyectoplayas-6aaa0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:739558426542:android:ae64c244c4e06b1058aa3f",
+        "android_client_info": {
+          "package_name": "com.example.playasapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "739558426542-ocesln60tghb99cje4hr900hsutd4nip.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVYo1OFH4ZvZPjIYxN6P9PcTuphxd4-DQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "739558426542-ocesln60tghb99cje4hr900hsutd4nip.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
