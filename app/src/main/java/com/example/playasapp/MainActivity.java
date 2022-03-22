@@ -8,6 +8,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.playasapp.adapters.AdapterPages;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -24,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference reference_user = database.getReference("Users").child(firebaseUser.getUid());
-    DatabaseReference ref_soli_cont = database.getReference("Contador").child(firebaseUser.getUid());
-    DatabaseReference ref_estado = database.getReference("Estado").child(firebaseUser.getUid());
+    DatabaseReference ref_beach = database.getReference("Beach").child(firebaseUser.getUid());
+    DatabaseReference ref_pools = database.getReference("Pool").child(firebaseUser.getUid());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,68 +42,23 @@ public class MainActivity extends AppCompatActivity {
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                 switch (position){
                     case 0:
-                        tab.setText("Usuarios");
-                        tab.setIcon(R.drawable.ic_users);
+                        tab.setText("Playas");
+                        tab.setIcon(R.drawable.ic_beach);
                         break;
                     case 1:
-                        tab.setText("Chats");
-                        tab.setIcon(R.drawable.ic_chat);
+                        tab.setText("Playas");
+                        tab.setIcon(R.drawable.ic_swimming_pool);
                         break;
                     case 2:
-                        tab.setText("Solicitudes");
-                        tab.setIcon(R.drawable.ic_contacto);
-                        final BadgeDrawable badgeDrawable = tab.getOrCreateBadge();
-                        badgeDrawable.setBackgroundColor(
-                                ContextCompat.getColor(getApplicationContext(), R.color.colorAccent)
-                        );
-                        badgeDrawable.setVisible(true);
-                        //badgeDrawable.setNumber(2);
-                        ref_soli_cont.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if(snapshot.exists()){
-                                    Integer count = snapshot.getValue(Integer.class);
-                                    badgeDrawable.setVisible(true);
-                                    if(count.equals("0")){
-
-                                        badgeDrawable.setVisible(false);
-                                    }else{
-                                        badgeDrawable.setNumber(count);
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
+                        tab.setText("Todo");
+                        tab.setIcon(R.drawable.ic_swim);
                         break;
-                    case 3:
-                        tab.setText("Llamadas");
-                        tab.setIcon(R.drawable.ic_contacting);
-                        break;
+
 
                 }
             }
         });
 
-        tabLayoutMediator.attach();
-        view2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position){
-                super.onPageSelected(position);
-                BadgeDrawable badgeDrawable = tabLayout.getTabAt(position).getOrCreateBadge();
-                badgeDrawable.setVisible(false);
 
-                if(position==2){
-                    contadorcero();
-                }
-            }
-        });
-
-        final FirebaseUser usuarios = FirebaseAuth.getInstance().getCurrentUser();
-
-        usuario();
     }
 }
