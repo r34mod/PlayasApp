@@ -14,7 +14,7 @@ public class Playa extends Fragment {
     public Playa(){
 
     }
-    
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
