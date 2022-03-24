@@ -13,11 +13,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.playasapp.Peds.Piscina;
 import com.example.playasapp.Peds.Playa;
 import com.example.playasapp.R;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdapPlayas extends RecyclerView.Adapter<AdapPlayas.PlayasHolder> {
@@ -30,6 +32,13 @@ public class AdapPlayas extends RecyclerView.Adapter<AdapPlayas.PlayasHolder> {
         this.context = context;
         this.playa = playa;
         this.modelView = modelView;
+    }
+
+
+
+    public AdapPlayas(ArrayList<Playa> playaArrayList, Context context) {
+        this.playa = playaArrayList;
+        this.context = context;
     }
 
 

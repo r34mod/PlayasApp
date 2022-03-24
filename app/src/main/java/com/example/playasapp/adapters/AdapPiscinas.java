@@ -16,6 +16,7 @@ import com.example.playasapp.R;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdapPiscinas extends RecyclerView.Adapter<AdapPiscinas.PiscinasHolder>{
@@ -29,6 +30,11 @@ public class AdapPiscinas extends RecyclerView.Adapter<AdapPiscinas.PiscinasHold
         this.piscina = piscina;
         this.viewModel = viewModel;
         }
+
+    public AdapPiscinas(ArrayList<Piscina> piscinaArrayList, Context context) {
+        this.piscina = piscinaArrayList;
+        this.context = context;
+    }
 
     @NonNull
     @Override
