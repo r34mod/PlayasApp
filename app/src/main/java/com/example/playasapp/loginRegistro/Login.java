@@ -1,6 +1,8 @@
 package com.example.playasapp.loginRegistro;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,12 +10,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.airbnb.lottie.LottieAnimationView;
+
 import com.example.playasapp.MainActivity;
 import com.example.playasapp.R;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
+
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,17 +34,15 @@ public class Login extends AppCompatActivity {
     private FirebaseAuth mAuth;
     // [END declare_auth]
 
-    private GoogleSignInClient mGoogleSignInClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        LottieAnimationView animationView = (LottieAnimationView) findViewById(R.id.lot);
-        animationView.setAnimation("login.json");
-        animationView.loop(true);
-        animationView.playAnimation();
+
+
 
         findViewById(R.id.btngmail).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +56,7 @@ public class Login extends AppCompatActivity {
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
         // [END config_signin]
 
         // [START initialize_auth]
@@ -79,17 +79,8 @@ public class Login extends AppCompatActivity {
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
-                firebaseAuthWithGoogle(account.getIdToken());
 
-            } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
-                Log.w(TAG, "Google sign in failed", e);
-            }
+
         }
     }
 
@@ -114,8 +105,8 @@ public class Login extends AppCompatActivity {
     }
 
     private void ingreso() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+
+
     }
     // [END signin]
 

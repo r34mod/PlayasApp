@@ -52,6 +52,7 @@
                 android:layout_margin="9dp"
                 android:adjustViewBounds="true"
                 android:padding="3dp"
+                android:id="@+id/photoBeach"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.500"
                 app:layout_constraintStart_toStartOf="parent"
@@ -93,6 +94,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Nombre"
+                        android:id="@+id/nameTxt"
                         android:textColor="@color/black"
                         android:textSize="16dp" />
 
@@ -122,12 +124,13 @@
                         android:layout_height="wrap_content"
                         android:text="Ubicacion"
                         android:textSize="16dp"
+                        android:id="@+id/ubicationTxt"
                         android:textColor="@color/black"/>
 
                     <EditText
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/descriptionBeach"
+                        android:id="@+id/ubicationBeach"
                         android:text="fhjbwefwekjf"
                         android:textColor="@color/black"
                         android:textSize="16dp"/>
@@ -150,6 +153,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Descripcion"
+                        android:id="@+id/descriptTxt"
                         android:textSize="16dp"
                         android:textColor="@color/black">
 
