@@ -7,19 +7,25 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.friendchatting.ui.home.HomeFragment"
+        android:name="com.example.playasapp.ui.Main.MainFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.example.friendchatting.ui.gallery.GalleryFragment"
+        android:name="com.example.playasapp.fragmentos.Playas"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_playa" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.example.friendchatting.ui.slideshow.SlideshowFragment"
+        android:name="com.example.playasapp.fragmentos.piscinas"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_piscina" />
+
+    <fragment
+        android:id="@+id/nav_todo"
+        android:name="com.example.playasapp.fragmentos.all"
+        android:label="navTodo"
+        tools:layout="@layout/fragment_todo" />
 </navigation>

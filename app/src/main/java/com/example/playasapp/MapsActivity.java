@@ -26,7 +26,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        exit = findViewById(R.id.exit);
+        exit = findViewById(R.id.exitMap);
         gps = findViewById(R.id.gps);
 
         setContentView(R.layout.activity_maps);
@@ -36,20 +36,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
 
-        exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MapsActivity.this, "SALIR", Toast.LENGTH_SHORT).show();
-                main();
-            }
+        exit.setOnClickListener(v -> {
+            Intent i = new Intent(MapsActivity.this, MainActivity.class);
+            startActivity(i);
         });
 
 
-        gps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MapsActivity.this, "LOCALIZANDOTE", Toast.LENGTH_SHORT).show();
-            }
+        gps.setOnClickListener((view)-> {
+
+            Toast.makeText(MapsActivity.this, "LOCALIZANDOTE", Toast.LENGTH_SHORT).show();
+
         });
     }
 

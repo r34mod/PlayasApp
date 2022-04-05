@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.playasapp.MainActivity;
-import com.example.playasapp.fragmentos.Playa;
+import com.example.playasapp.fragmentos.Playas;
 import com.example.playasapp.fragmentos.all;
 import com.example.playasapp.fragmentos.piscinas;
 
@@ -24,7 +24,7 @@ public class AdapterPages extends FragmentStateAdapter {
             case 1:
                 return new piscinas();
             case 2:
-                return new Playa();
+                return new Playas();
 
             default:
                 return new all();

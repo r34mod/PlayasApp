@@ -28,18 +28,13 @@ public class AdapPlayas extends RecyclerView.Adapter<AdapPlayas.PlayasHolder> {
     private List<Playa> playa;
     ThumbListener modelView;
 
-    public AdapPlayas(Context context, List<Playa> playa, ThumbListener modelView){
-        this.context = context;
-        this.playa = playa;
-        this.modelView = modelView;
-    }
-
 
 
     public AdapPlayas(ArrayList<Playa> playaArrayList, Context context) {
         this.playa = playaArrayList;
         this.context = context;
     }
+
 
 
     @NonNull
@@ -59,9 +54,7 @@ public class AdapPlayas extends RecyclerView.Adapter<AdapPlayas.PlayasHolder> {
         holder.puntosPlaya.setText(playas.getPuntuacionPlaya());
     }
 
-    public void getAllModels(List<Playa> playa){
-        this.playa = playa;
-    }
+
 
     @Override
     public int getItemCount() {

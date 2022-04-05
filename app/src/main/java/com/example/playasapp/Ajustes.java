@@ -6,11 +6,11 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,8 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Ajustes extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    FirebaseUser fireUser = FirebaseAuth.getInstance().getCurrentUser();
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +64,7 @@ public class Ajustes extends AppCompatActivity {
                     return false;
                 });
 
-        navigationView.getMenu().findItem(R.id.nav_perfil).setOnMenuItemClickListener(
+        navigationView.getMenu().findItem(R.id.nav_profile).setOnMenuItemClickListener(
                 (menuItem)->{
                     Intent b = new Intent(Ajustes.this, MainActivity.class);
                     startActivity(b);

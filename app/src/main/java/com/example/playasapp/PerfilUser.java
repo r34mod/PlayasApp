@@ -12,7 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.playasapp.clases.Users;
-import com.example.playasapp.loginRegistro.Login;
+import com.example.playasapp.Login;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class PerfilUser extends AppCompatActivity {
 
-    FirebaseUser fireuser = FirebaseAuth.getInstance().getCurrentUser();
+
     DatabaseReference reference;
     EditText nameUser, photoEdit, emailEdit;
     TextView emailUser,nombreUser;
@@ -28,7 +28,6 @@ public class PerfilUser extends AppCompatActivity {
     ImageButton btnSalir;
     ImageView photoUser;
 
-    String id = fireuser.getUid();
 
 
     @Override
@@ -43,8 +42,8 @@ public class PerfilUser extends AppCompatActivity {
         nombreUser = findViewById(R.id.nombre_user);
         btnSalir = findViewById(R.id.btn_salir);
 
-        nombreUser.setText(fireuser.getDisplayName());
-        emailUser.setText(fireuser.getEmail());
+        nombreUser.setText("fireuser.getDisplayName()");
+        emailUser.setText("fireuser.getEmail()");
 
 
         //Glade.with
@@ -57,8 +56,8 @@ public class PerfilUser extends AppCompatActivity {
         });
 
         btnDelete.setOnLongClickListener((view)->{
-            reference = FirebaseDatabase.getInstance().getReference("Users").child(id);
-            reference.removeValue();
+            //reference = FirebaseDatabase.getInstance().getReference("Users").child(id);
+            //reference.removeValue();
             Toast.makeText(this, "ELIMINADO EL USER", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(PerfilUser.this, Login.class);
             return true;
@@ -66,9 +65,9 @@ public class PerfilUser extends AppCompatActivity {
 
         btnUpdate.setOnClickListener((view)->{
             String txtName = nameUser.getText().toString();
-            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-            DatabaseReference databaseReference = firebaseDatabase.getReference("Users");
-            databaseReference.child(fireuser.getUid()).child("username").setValue(txtName);
+            //FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+            //DatabaseReference databaseReference = firebaseDatabase.getReference("Users");
+            //databaseReference.child(fireuser.getUid()).child("username").setValue(txtName);
         });
     }
 

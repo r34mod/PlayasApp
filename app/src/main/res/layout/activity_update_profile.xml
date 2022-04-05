@@ -48,7 +48,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/startphoto">
+            android:background="@drawable/ic_salir">
 
         </ImageButton>
     </RelativeLayout>

@@ -38,6 +38,8 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:id="@+id/gps"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
                 android:background="@drawable/ic_map" />
             //se pone un view vacio para desplazar el boton de salir a la derecha del todo
             //usando el weight>=1
@@ -47,10 +49,13 @@
                 android:layout_weight="1"/>
 
             <ImageButton
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="@drawable/ic_salir"
-                android:id="@+id/exit"/>
+                android:id="@+id/exitMap"/>
+
         </LinearLayout>
 
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
