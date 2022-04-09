@@ -5,65 +5,114 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.firebase.ui.*;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.Arrays;
-import java.util.List;
 
 public class Login extends AppCompatActivity {
 
-    private FirebaseAuth authfire;
-    private FirebaseAuth.AuthStateListener authStateListener;
-
-    public static final int SIGN_IN = 1;
-
-    List<AuthUI.IdpConfig> provider = Arrays.asList(
-            new AuthUI.IdpConfig.GoogleBuilder().build()
-            //new AuthUI.IdpConfig.FacebookBuilder().build()
-    );
-
-
+    Button btn_login, btn_register, btn_login_anonymous;
+    EditText email, password;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.startTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
+        this.setTitle("Login");
 
-        authfire = FirebaseAuth.getInstance();
-        authStateListener = firebaseAuth -> {
-            FirebaseUser usuario = firebaseAuth.getCurrentUser();
-            if(usuario != null){
-                moverMain();
-                Toast.makeText(Login.this, "Log in", Toast.LENGTH_SHORT).show();
-            }else{
-                startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(provider).setIsSmartLockEnabled(false).build(), SIGN_IN);
+        mAuth = FirebaseAuth.getInstance();
 
+        email = findViewById(R.id.correo);
+        password = findViewById(R.id.contrasena);
+        btn_login = findViewById(R.id.btn_ingresar);
+        btn_register = findViewById(R.id.btn_register);
+        btn_login_anonymous = findViewById(R.id.btn_anonymous);
+
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String emailUser = email.getText().toString().trim();
+                String passUser = password.getText().toString().trim();
+
+                if (emailUser.isEmpty() && passUser.isEmpty()){
+                    Toast.makeText(Login.this, "Ingresar los datos", Toast.LENGTH_SHORT).show();
+                }else{
+                    loginUser(emailUser, passUser);
+                }
             }
-        };
+        });
+
+        btn_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Login.this, Register.class));
+            }
+        });
+
+        btn_login_anonymous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loginAnonymous();
+            }
+        });
     }
 
+    private void loginAnonymous() {
+        mAuth.signInAnonymously()
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            startActivity(new Intent(Login.this, MainActivity.class));
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Login.this, "Error al acceder", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loginUser(String emailUser, String passUser) {
+        mAuth.signInWithEmailAndPassword(emailUser, passUser).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    finish();
+                    startActivity(new Intent(Login.this, MainActivity.class));
+                    Toast.makeText(Login.this, "Bienvenido", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(Login.this, "Error", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Login.this, "Error al inciar sesión", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     @Override
-    protected void onResume(){
-        super.onResume();
-        authfire.addAuthStateListener(authStateListener);
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null){
+            startActivity(new Intent(Login.this, MainActivity.class));
+            finish();
+        }
     }
 
-    @Override
-    protected void onPause(){
-        super.onPause();
-        authfire.removeAuthStateListener(authStateListener);
-    }
-
-    private void moverMain(){
-        Intent a = new Intent(this, MainActivity.class);
-        a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(a);
-    }
 }

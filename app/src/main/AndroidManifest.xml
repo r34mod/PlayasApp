@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PlayasApp">
-
+        <activity android:name=".Register"></activity>
         <activity
             android:name=".adds.AddBeachActivity"
             android:label="@string/title_activity_add_beach"
@@ -36,11 +36,9 @@
         <activity
             android:name=".PerfilUser"
             android:label="PerfilUser" />
-
         <activity
             android:name=".Login"
-            android:label="Login"
-           />
+            android:label="Login" />
         <activity
             android:name=".Ajustes"
             android:label="Ajustes" />
