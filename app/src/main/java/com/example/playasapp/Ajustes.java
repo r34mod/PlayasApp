@@ -89,6 +89,15 @@ public class Ajustes extends AppCompatActivity {
                 }
         );
 
+        navigationView.getMenu().findItem(R.id.nav_info).setOnMenuItemClickListener(
+                (menuItem)->{
+                    Intent b = new Intent(Ajustes.this, InfoActivity.class);
+                    startActivity(b);
+                    return false;
+                }
+        );
+
+
         nuevaNavegacion();
 
 
