@@ -74,7 +74,7 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             FirebaseUser user = mAuth.getCurrentUser();
-                            startActivity(new Intent(Login.this, MainActivity.class));
+                            startActivity(new Intent(Login.this, Ajustes.class));
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -91,7 +91,7 @@ public class Login extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     finish();
-                    startActivity(new Intent(Login.this, MainActivity.class));
+                    startActivity(new Intent(Login.this, Ajustes.class));
                     Toast.makeText(Login.this, "Bienvenido", Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(Login.this, "Error", Toast.LENGTH_SHORT).show();
@@ -110,7 +110,7 @@ public class Login extends AppCompatActivity {
         super.onStart();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null){
-            startActivity(new Intent(Login.this, MainActivity.class));
+            startActivity(new Intent(Login.this, Ajustes.class));
             finish();
         }
     }

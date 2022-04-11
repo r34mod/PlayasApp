@@ -1,5 +1,6 @@
 package com.example.playasapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -7,17 +8,31 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.appcompat.widget.Toolbar;
+//import com.bumptech.glide.Glide;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Ajustes extends AppCompatActivity {
+
+    FirebaseAuth mAuth;
+
+
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -28,6 +43,8 @@ public class Ajustes extends AppCompatActivity {
         setContentView(R.layout.activity_ajustes);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mAuth = FirebaseAuth.getInstance();
 
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -40,7 +57,7 @@ public class Ajustes extends AppCompatActivity {
 
         navigationView.getMenu().findItem(R.id.nav_home).setOnMenuItemClickListener(
                 (menuItem)->{
-                    Intent i = new Intent(Ajustes.this, MainActivity.class);
+                    Intent i = new Intent(Ajustes.this, Ajustes.class);
                     startActivity(i);
                     return false;
                 }
@@ -66,12 +83,67 @@ public class Ajustes extends AppCompatActivity {
 
         navigationView.getMenu().findItem(R.id.nav_profile).setOnMenuItemClickListener(
                 (menuItem)->{
-                    Intent b = new Intent(Ajustes.this, MainActivity.class);
+                    Intent b = new Intent(Ajustes.this, PerfilUser.class);
                     startActivity(b);
                     return false;
                 }
         );
 
+        nuevaNavegacion();
+
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.activity_main_drawer, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+        boolean cerrado = false;
+
+        switch (item.getItemId()){
+            case R.id.nav_sesion:
+                mAuth.signOut();
+                cerrado = true;
+                finish();
+                Toast.makeText(Ajustes.this, "Sesion cerrada", Toast.LENGTH_SHORT).show();
+                sessionCerrada();
+            break;
+        }
+
+        return cerrado;
+    }
+
+
+    private void sessionCerrada(){
+        Intent i = new Intent(this, Login.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();
+    }
+
+
+    public void nuevaNavegacion(){
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        TextView username = header.findViewById(R.id.nav_user);
+        TextView email = header.findViewById(R.id.nav_mail);
+        ImageView userphoto = header.findViewById(R.id.imgUser);
+
+        //fireuser
+        username.setText("Juana");
+        email.setText("juana@juana.com");
+        //Glide.with(this).load("jj");
     }
 
 
