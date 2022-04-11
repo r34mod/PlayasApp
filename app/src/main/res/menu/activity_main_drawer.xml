@@ -24,6 +24,12 @@
             android:icon="@drawable/ic_heart"
             android:title="Mis lugares favoritos" />
 
+
+        <item
+            android:id="@+id/nav_info"
+            android:icon="@drawable/ic_baseline_info_24"
+            android:title="Como usarla" />
+
     </group>
 
     <group android:id="@+id/grupo2"
