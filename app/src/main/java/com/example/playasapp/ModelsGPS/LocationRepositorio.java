@@ -4,13 +4,20 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
-import androidx.room.Update;
 
-import com.example.playasapp.Peds.Playa;
+import com.example.playasapp.PlayasDB.Beachs;
 import com.example.playasapp.PlayasDB.PlayasDB;
+import com.example.playasapp.PlayasDB.PlayaDao;
 
 import java.util.List;
 
+/**
+ * @Class LocationRepositorio
+ *
+ *
+ *
+ *
+ */
 public class LocationRepositorio {
     //Clase para almacenar los datos obtenidos al momento
     private PlayasDB db;
@@ -19,19 +26,19 @@ public class LocationRepositorio {
         db = PlayasDB.getINSTANCE(application);
     }
 
-    public void insert(List<Playa> modelList){
+    public void insert(List<Beachs> modelList){
         new InsertAsynTask(db).execute(modelList);
     }
 
-    public LiveData<List<Playa>> getAllModel(String latlonString){
+    public LiveData<List<Beachs>> getAllModel(String latlonString){
         return db.playaDao().getAllModel(latlonString);
     }
 
-    public void update(Playa playaModel){
+    public void update(Beachs playaModel){
         new UpdateAsynTask(db).execute(playaModel);
     }
 
-    static class UpdateAsyncTask extends AsyncTask<Playa, Void, Void>{
+    static class UpdateAsyncTask extends AsyncTask<Beachs, Void, Void>{
         private PlayaDao playaDao;
 
         UpdateAsyncTask(PlayasDB db){
@@ -39,15 +46,15 @@ public class LocationRepositorio {
         }
 
         @Override
-        protected Void doInBackground(Playa... playa){
-            Playa playa1 = playa[0];
-            playaDao.update(!playa1.thumb, playa1.playaId);
+        protected Void doInBackground(Beachs... beach){
+            Beachs beach1 = beach[0];
+            playaDao.update(!beach1.thumb, beach1.beachsId);
             return null;
         }
     }
 
 
-    static class InsertAsynTask extends AsyncTask<List<Playa>, Void, Void>{
+    static class InsertAsynTask extends AsyncTask<List<Beachs>, Void, Void>{
         private PlayaDao playaDao;
 
         InsertAsynTask(PlayasDB db){
@@ -55,9 +62,25 @@ public class LocationRepositorio {
         }
 
         @Override
-        protected Void doInBackground(List<Playa>... playas){
+        protected Void doInBackground(List<Beachs>... beachs){
 
-            playaDao.insert(playas[0]);
+            playaDao.insert(beachs[0]);
+            return null;
+        }
+    }
+
+
+    static class UpdateAsynTask extends AsyncTask<Beachs, Void, Void>{
+        private PlayaDao playaDao;
+
+        public UpdateAsynTask(PlayasDB db) {
+            playaDao = db.playaDao();
+        }
+
+        @Override
+        protected Void doInBackground(Beachs... beachs){
+            Beachs beach1 = beachs[0];
+            playaDao.update(!beach1.thumb, beach1.beachsId);
             return null;
         }
     }

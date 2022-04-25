@@ -83,8 +83,6 @@ public class AdapPlayas extends RecyclerView.Adapter<AdapPlayas.PlayasHolder> {
                 imgPlaya = itemView.findViewById(R.id.imagenPlaya);
                 puntosPlaya = itemView.findViewById(R.id.puntosPlaya);
                 //imgPlaya.setOnClickListener();
-
-
         }
 
         @Override
