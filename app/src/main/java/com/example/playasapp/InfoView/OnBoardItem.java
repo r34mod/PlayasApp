@@ -1,5 +1,13 @@
 package com.example.playasapp.InfoView;
 
+
+/**
+ *
+ * Clase Objeto OnBoardItems.
+ *
+ *
+ */
+
 public class OnBoardItem {
 
     private int imagen;

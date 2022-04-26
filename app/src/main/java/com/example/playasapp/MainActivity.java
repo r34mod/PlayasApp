@@ -25,6 +25,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ *
+ * Class MainActivity tiene los adapatadores de Playas y Piscinas y se accede desde la pantalla principal
+ *
+ * Tambien da soporte a la clase Ajustes siendo esta el menu.
+ *
+ *
+ *
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     //FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -74,12 +84,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     *
+     * Funcion de la creacion del menu lateral de la clase Ajustes
+     *
+     * Pasamos como param Menu y nos devuelve el boolean true cuando se crea
+     *
+     * @param menu
+     * @return
+     */
+
     public boolean onCreateOptionMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_main_drawer, menu);
         return true;
     }
 
+
+    /**
+     *
+     * Funcion para cerrar sesion desde la barra de arriba de la app.
+     *
+     *
+     *
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         switch (item.getItemId()){

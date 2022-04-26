@@ -1,4 +1,12 @@
-package com.example.playasapp.Peds;
+package com.example.playasapp.Objetos;
+
+
+/**
+ *
+ * Clase Objeto Users
+ *
+ */
+
 
 public class Users {
     private String id;

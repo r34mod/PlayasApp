@@ -14,6 +14,14 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.playasapp.MainActivity;
 import com.example.playasapp.R;
 
+/**
+ *
+ * Clase MainFragment visualiza un menu en los adaptadores para moverte por los fragmentos de ellos mismos
+ *
+ *
+ *
+ */
+
 public class MainFragment extends Fragment {
 
     private MainViewModel mainViewModel;

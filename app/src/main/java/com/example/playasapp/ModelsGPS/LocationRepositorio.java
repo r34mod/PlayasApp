@@ -54,6 +54,24 @@ public class LocationRepositorio {
     }
 
 
+    /**
+     *
+     * Funcion para insertar los datos de playa en la bbdd interna DAO
+     *
+     * Estos datos a insertar se obtienen de la API
+     *
+     * Coge los datos de NOMBRE, LATLON
+     *
+     * Beach{
+     *     "beachsId=" + beachsId +
+     *     ", name=" + name + '\'' +
+     *     ", latlon=" + latlon + '\'' +
+     *     ", address=" + address + '\'' + '}'
+     *
+     * }
+     *
+     */
+
     static class InsertAsynTask extends AsyncTask<List<Beachs>, Void, Void>{
         private PlayaDao playaDao;
 
@@ -69,6 +87,12 @@ public class LocationRepositorio {
         }
     }
 
+    /**
+     *
+     * Funcion para actualizar los datos de alguna playa que ya existiera o cambiar
+     * la lista de recomendaciones anteriorrmente obtenida
+     *
+     */
 
     static class UpdateAsynTask extends AsyncTask<Beachs, Void, Void>{
         private PlayaDao playaDao;

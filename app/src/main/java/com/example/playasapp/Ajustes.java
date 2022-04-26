@@ -28,6 +28,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ *
+ * Clase Ajustes tiene el menu lateral del principio de la app
+ *
+ * En esta clase nos permite navegar a todas las otras clases creadas, como Perfil, Mapa, Playas...
+ *
+ *
+ */
 public class Ajustes extends AppCompatActivity {
 
     FirebaseAuth mAuth;
@@ -103,6 +111,9 @@ public class Ajustes extends AppCompatActivity {
 
     }
 
+    /**
+        Funcion para la creacion del menu lateral. Llamada al XML donde esta maquetado
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
@@ -110,6 +121,13 @@ public class Ajustes extends AppCompatActivity {
         return true;
     }
 
+    /**
+     *
+     * Funcion de control de cierre de sesion
+     *
+     * @param item
+     * @return boolean para saber si cierra la sesion el usuario
+     */
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
@@ -128,6 +146,10 @@ public class Ajustes extends AppCompatActivity {
         return cerrado;
     }
 
+    /**
+     * Funcion que cierra la sesion, limpia cache y te saca de la app
+     *
+     */
 
     private void sessionCerrada(){
         Intent i = new Intent(this, Login.class);
@@ -135,12 +157,23 @@ public class Ajustes extends AppCompatActivity {
         startActivity(i);
     }
 
+    /**
+     *
+     * Funcion de controlador del mapeado de Navegacion para moverte a distintas pantallas
+     * @return
+     */
+
     @Override
     public boolean onSupportNavigateUp(){
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();
     }
 
+    /**
+     *
+     * Funcion de controlador del mapeado de Navegacion para moverte a distintas pantallas y ejecucion del mapeado
+     *
+     */
 
     public void nuevaNavegacion(){
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);

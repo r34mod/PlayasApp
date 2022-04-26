@@ -9,6 +9,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
+/**
+ *
+ * Clase PlayaApi donde conectamos la app con la API utilizada para obtener
+ * los mejores sitios recomendados y cercanos a donde el usuario se
+ * encuentre
+ *
+ *
+ *
+ */
+
 public class PlayasApi {
 
     public static FourSquareService fourSquareService=null;
@@ -33,6 +43,12 @@ public class PlayasApi {
     }
 
 
+    /**
+     *
+     * En esta interfaz, la API crea las llamadas para obtener la localizacion y listado de los
+     * sitios cercanos y recomendados para el user
+     *
+     */
     public interface FourSquareService{
         @GET("venues/explore/")
         Call<FourSquareResource> getFourSquareResponse(

@@ -1,4 +1,11 @@
-package com.example.playasapp.Peds;
+package com.example.playasapp.Objetos;
+
+/**
+ *
+ * Clase Objeto Todos
+ *
+ */
+
 
 public class Todo {
 

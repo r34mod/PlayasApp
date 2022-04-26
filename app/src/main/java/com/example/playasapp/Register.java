@@ -21,6 +21,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *
+ * Clase Register al igual que el login, el usuario debera registrarse mediante email y una password
+ *
+ * Estos datos se almacenan en Firebase para usarlos en el login y en el perfil del user
+ *
+ * Se ha utilizado FireStore para el registro de usuarios
+ *
+ *
+ */
 
 public class Register extends AppCompatActivity {
 
@@ -59,6 +69,19 @@ public class Register extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     *
+     * Funcion de registrar el usuario, donde se le pasan los parametros pedidos al usuario.
+     *
+     * En este proceso, se verifican que esten correctos y se le asigna un ID al usuario registrado
+     *
+     * Con este id del usuario, se crea una columna en Firebase con sus datos
+     *
+     * @param nameUser
+     * @param emailUser
+     * @param passUser
+     */
 
     private void registerUser(String nameUser, String emailUser, String passUser) {
         mAuth.createUserWithEmailAndPassword(emailUser, passUser).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

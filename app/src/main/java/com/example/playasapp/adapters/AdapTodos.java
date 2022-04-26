@@ -11,10 +11,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.playasapp.Peds.Todo;
+import com.example.playasapp.Objetos.Todo;
 import com.example.playasapp.R;
 
 import java.util.List;
+
+
+/**
+ *
+ * Clase AdapTodos tiene los cardView de las playas, piscinas que vayamos a mostrar
+ *
+ * Todos los cardView de esta clase se almacenan en un arrayList de objecto Todos
+ *
+ * Usamos el ViewHolder
+ *
+ *
+ */
+
 
 public class AdapTodos extends RecyclerView.Adapter<AdapTodos.TodosHolder> {
 

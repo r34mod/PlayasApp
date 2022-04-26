@@ -14,6 +14,16 @@ import com.example.playasapp.R;
 
 import java.util.List;
 
+/**
+ *
+ * Clase OnBoardAdap que esta conectado con InfoActivity y es el adaptador para mostrar los fragmentos
+ *
+ * Para mostrar estos fragmentos, creas un ArrayList de tipo OnBoardItems donde tiene los atributos
+ * de imagen, titulo y descripcion
+ *
+ *
+ */
+
 public class OnBoardAdap extends RecyclerView.Adapter<OnBoardAdap.OnBoardViewHolder> {
 
     private List<OnBoardItem> onBoardItemList;

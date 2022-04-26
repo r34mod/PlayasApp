@@ -12,10 +12,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.playasapp.Peds.Piscina;
+import com.example.playasapp.Objetos.Piscina;
 import com.example.playasapp.R;
 import com.example.playasapp.adapters.AdapPiscinas;
-import com.example.playasapp.adapters.AdapPlayas;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,9 +29,8 @@ import java.util.ArrayList;
  *
  * Clase piscinas, usamos el fragmento para usar el recycle view y mostrar las piscinas alojadas en CardView
  *
- * @author
- *
- * @version
+ * En esta clase el fragmento crea el arrayList y el recycleView los cuales luego se mandan al
+ * adapPiscinas.
  *
  *
  */
@@ -72,7 +70,7 @@ public class piscinas extends Fragment {
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference("Playa");
+        DatabaseReference reference = database.getReference("Pool");
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override

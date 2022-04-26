@@ -1,4 +1,11 @@
-package com.example.playasapp.Peds;
+package com.example.playasapp.Objetos;
+
+
+/**
+ *
+ * Clase Objeto Playa
+ *
+ */
 
 public class Playa {
 

@@ -11,13 +11,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.playasapp.Peds.Piscina;
+import com.example.playasapp.Objetos.Piscina;
 import com.example.playasapp.R;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ *
+ * Clase AdapPiscinas tiene los cardView de las piscinas que vayamos a mostrar
+ *
+ * Todos los cardView de esta clase se almacenan en un arrayList de objecto Piscina
+ *
+ * Usamos el ViewHolder
+ *
+ *
+ */
+
 
 public class AdapPiscinas extends RecyclerView.Adapter<AdapPiscinas.PiscinasHolder>{
 

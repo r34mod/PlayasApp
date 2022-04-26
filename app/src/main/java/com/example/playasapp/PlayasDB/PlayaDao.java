@@ -8,6 +8,22 @@ import androidx.room.Query;
 
 import java.util.List;
 
+/**
+ *
+ * Interfaz de PlayaDao (Base de datos interna de la app)
+ *
+ * Utilizando la biblioteca Room
+ *
+ * Se utiliza usando objetos de acceso a datos
+ *
+ * Utilizamos en este caso PLayaDao para la obtencion de un listado en tiempo real
+ * de playas cercanas a nuestra localizacion
+ *
+ * All implement via API
+ *
+ */
+
+
 @Dao
 public interface PlayaDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -25,6 +25,21 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ *
+ * Clase Para agregar playas a la base de datos de Firebase
+ *
+ * El usuario registrado podra agregar una playa a la app, agregando informacion de ella
+ *
+ * Tambien ademas de agregar podra eliminar alguna de las playas creadas por el.
+ *
+ * NO PUEDE ELIMINAR PLAYAS DE OTROS USUARIOS!
+ *
+ *
+ */
+
+
+
 public class AddBeachActivity extends AppCompatActivity {
 
     FirebaseUser fireUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -99,6 +114,12 @@ public class AddBeachActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *
+     *
+     * Funcion para eliminar la playa por Id del usuario
+     * @param id
+     */
     private void deleteBeach(String id){
         reference = FirebaseDatabase.getInstance().getReference("Playa").child(id);
         reference.removeValue();
@@ -106,6 +127,15 @@ public class AddBeachActivity extends AppCompatActivity {
     }
 
 
+    /**
+     *
+     * Agrega una playa a la bbdd, tambien sirve para actualizar la informacion de la misma
+     *
+     * @param nombreBeach
+     * @param ubicacionBeach
+     * @param descripcionBeach
+     * @param ratingBar
+     */
     private void actualizarPlaya(EditText nombreBeach, EditText ubicacionBeach, EditText descripcionBeach, RatingBar ratingBar){
         String namePlaya = nombreBeach.getText().toString();
         String ubicPlaya = ubicacionBeach.getText().toString();

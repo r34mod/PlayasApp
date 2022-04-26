@@ -9,8 +9,19 @@ import com.example.playasapp.fragmentos.Playas;
 import com.example.playasapp.fragmentos.all;
 import com.example.playasapp.fragmentos.piscinas;
 
+/**
+ *
+ * Clase AdapterPages es el fragmento que coontiene los demas Adaptadores de la app
+ *
+ * Funciona como menu pero deslizando de izquierda a derecha para cambiar de pantalla
+ *
+ *
+ *
+ */
+
 public class AdapterPages extends FragmentStateAdapter {
 
+    //Se conecta con el MAINACTIVITY DONDE SALE EL MENU TABLAYOUT
     public AdapterPages(@NonNull MainActivity fragment) {
         super(fragment);
     }

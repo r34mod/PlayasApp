@@ -14,7 +14,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
 
-import com.example.playasapp.Peds.Playa;
 import com.example.playasapp.PlayasDB.Beachs;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -27,6 +26,15 @@ import retrofit2.Callback;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * Clase ModelsLocation que implementamos la clase LocationListener
+ *
+ * En esta clase encontramos la conexion con la API a traves de laas keys de client
+ *
+ *
+ *
+ */
 
 public class ModelsLocation extends AndroidViewModel implements LocationListener {
     public final LocationRepositorio locationRepositorio;
@@ -34,6 +42,16 @@ public class ModelsLocation extends AndroidViewModel implements LocationListener
     String client_id = "BMRA0OSIBFAMQ3BB253NLRK24HMER2PDWMO4BWKKKKJGOD1E";
     String client_secret = "T3K2YNMKHVWGAKGAJNTP44P0STB1IQRON50JDAKYY0ABPYA1";
 
+
+    /**
+     *
+     * Creamos dos arrayList para obtener los sitios recomendados en la localizacion que
+     * tengamos en el momento
+     *
+     * Este proceso se hace en ese momento y va cambiando si nosotros cambiamos de localizacion
+     *
+     *
+     */
     MutableLiveData<String> latlon = new MutableLiveData<>();
     LiveData<List<Beachs>> playasLocation;
 
@@ -50,6 +68,7 @@ public class ModelsLocation extends AndroidViewModel implements LocationListener
 
         }
 
+        //Actualiza la informacion obtenida al cambiar de posicion
     public void update(Beachs playasModels){
         locationRepositorio.update(playasModels);
     }
@@ -58,6 +77,13 @@ public class ModelsLocation extends AndroidViewModel implements LocationListener
     public LiveData<List<Beachs>> getPlayasLocation(){
         return playasLocation;
     }
+
+
+    /**
+     *
+     *  Metodo que se ejecuta siempre que estemos en la pantalla para obtener la ubicacion nuestra
+     *
+     */
 
     @SuppressLint("MissingPermission")
     public void getLocation(){
@@ -82,6 +108,14 @@ public class ModelsLocation extends AndroidViewModel implements LocationListener
         }
     }
     //fourSquare Api
+
+    /**
+     *
+     * Se conecta a la API y va obteniendo los sitios recomendados mendiante el objeto creada Beach que
+     * lo tenemos en una base de datos interna al movil (DAO)
+     *
+     * @param loca
+     */
     public void getData(final String loca){
         final PlayasApi.FourSquareService lista = PlayasApi.getFourSquareService();
 
@@ -115,6 +149,12 @@ public class ModelsLocation extends AndroidViewModel implements LocationListener
     }
 
 
+    /**
+     *
+     * Se ejecuta siempre para obtener la ubicacion exacta
+     *
+     * @param location
+     */
     @Override
     public void onLocationChanged(@NonNull Location location) {
         double lat = location.getLatitude();

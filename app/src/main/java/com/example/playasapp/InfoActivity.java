@@ -18,6 +18,12 @@ import com.google.android.material.button.MaterialButton;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * Clase InfoActivity donde nos muestra como utilizar la app mediante el uso de Fragmentos
+ *
+ */
+
 public class InfoActivity extends AppCompatActivity {
 
     private OnBoardAdap onboardApp;
@@ -68,6 +74,12 @@ public class InfoActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Funcion donde creamos cada objeto con su imagen y los datos a mostrar por fragmento al usuario
+     *
+     * Se introducen en un arraylist de tipo OnBoardItem
+     *
+     */
 
     private void setupOnboardItems(){
         List<OnBoardItem> onboardItems = new ArrayList<>();
@@ -104,6 +116,13 @@ public class InfoActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     * Funcion para indicar el numero de fragmentos que hay en la actividad.
+     * Se mostrara con un icono de concha marina
+     *
+     */
+
     private void setOnboardIndicador(){
         ImageView[] indicador = new ImageView[onboardApp.getItemCount()];
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -121,6 +140,14 @@ public class InfoActivity extends AppCompatActivity {
             layoutBoard.addView(indicador[i]);
         }
     }
+
+    /**
+     *
+     * Funcion para mostrar un icono de cangrejo en la posicion de fragmento que este el usuario
+     *
+     *
+     * @param index = numero de fragmento situado
+     */
 
     private void setCurrentIndicador(int index){
         int count = layoutBoard.getChildCount();

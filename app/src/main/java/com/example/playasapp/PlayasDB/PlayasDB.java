@@ -10,6 +10,19 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+/**
+ *
+ *
+ * Clase abstracta de PLayasDB para la conexcion con la base de datos interna de la app
+ *
+ * Crea las instancias para ver si existe o no la bbdd en el movil y si no existe te la crea
+ * Esto se produce cuando es la primera vez que el usuario accede
+ *
+ * (Tambien se pierde esta bbdd si se hace un clear Cache de la app)
+ *
+ */
+
+
 @Database(entities = {Beachs.class}, version=2, exportSchema = false)
 public abstract class PlayasDB extends RoomDatabase {
     private static final String DATABASE_NAME = "PlayaDB";

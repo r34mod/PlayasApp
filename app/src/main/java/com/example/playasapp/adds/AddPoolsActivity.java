@@ -14,11 +14,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.playasapp.R;
+import com.example.playasapp.adapters.AdapPiscinas;
 import com.example.playasapp.adapters.AdapPlayas;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+
+/**
+ *
+ *
+ * Clase Para agregar piscinas a la base de datos de Firebase
+ *
+ * El usuario registrado podra agregar una playa a la app, agregando informacion de ella
+ *
+ * Tambien ademas de agregar podra eliminar alguna de las piscinas creadas por el.
+ *
+ * NO PUEDE ELIMINAR PLAYAS DE OTROS USUARIOS!
+ *
+ *
+ */
+
 
 public class AddPoolsActivity extends AppCompatActivity {
 
@@ -51,11 +68,11 @@ public class AddPoolsActivity extends AppCompatActivity {
         // });
 
 
-        ratingBar = (RatingBar)findViewById(R.id.ratingBarPool);
+        ratingBar = (RatingBar) findViewById(R.id.ratingBarPool);
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                Toast.makeText(AddPoolsActivity.this, "La puntacion dada es: "+rating, Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddPoolsActivity.this, "La puntacion dada es: " + rating, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -79,24 +96,50 @@ public class AddPoolsActivity extends AppCompatActivity {
 
 
         img_salir.setOnClickListener(v -> {
-            Intent i = new Intent(AddPoolsActivity.this, AdapPlayas.class);
+            Intent i = new Intent(AddPoolsActivity.this, AdapPiscinas.class);
             startActivity(i);
         });
 
         btnAddPool.setOnClickListener(v -> {
-            actualizarPlaya(nombrePool, ubicacionPool, descripcionPool, ratingBar);
+            actualizarPiscina(nombrePool, ubicacionPool, descripcionPool, ratingBar);
+        });
+
+        btnDeletPool.setOnClickListener(v -> {
+            deletePool(id);
+            Intent i = new Intent(AddPoolsActivity.this, AdapPiscinas.class);
+            startActivity(i);
         });
     }
 
+        private void deletePool(String id){
+            reference = FirebaseDatabase.getInstance().getReference("Pool").child(id);
+            reference.removeValue();
+            Toast.makeText(this, "Eliminado", Toast.LENGTH_SHORT).show();
+        }
 
-    private void actualizarPlaya(EditText nombrePool, EditText ubicacionPool, EditText descripcionPool, RatingBar ratingBar){
+
+    /**
+     *
+     * Agrega una piscina a la bbdd, tambien sirve para actualizar la informacion de la misma
+     *
+     * @param nombrePool
+     * @param ubicacionPool
+     * @param descripcionPool
+     * @param ratingBar
+     */
+    private void actualizarPiscina(EditText nombrePool, EditText ubicacionPool, EditText descripcionPool, RatingBar ratingBar){
         String namePool = nombrePool.getText().toString();
         String ubicPool = ubicacionPool.getText().toString();
         String descripPool = descripcionPool.getText().toString();
         float puntuacion = ratingBar.getRating();
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference reference = firebaseDatabase.getReference("Piscina");
+        DatabaseReference reference = firebaseDatabase.getReference("Pool");
+        /**Hacemos referencia a la tabla Pool, y comprobamos que la id del usuario este asociada
+            a la id de la pool en concreta (child(fireUser.getUid())
+
+         getUid() es la key principal del usuario!!
+        */
         reference.child(fireUser.getUid()).child("namePool").setValue(namePool);
         reference.child(fireUser.getUid()).child("ubicPool").setValue(ubicPool);
         reference.child(fireUser.getUid()).child("descripPool").setValue(descripPool);

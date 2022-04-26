@@ -17,6 +17,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ *
+ * Clase Login donde acceder con tu usuario a la app, en modo anonimo o registrarte
+ *
+ * Proceso de login va por correo y contrasenia
+ *
+ *
+ */
 
 public class Login extends AppCompatActivity {
 
@@ -67,6 +75,15 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    /**
+     *
+     * Funcion para el usuario que no tenga cuenta y tampoco quiera registrarse,
+     * obtiene un usuario anonimo para acceder a la app
+     *
+     * Se inicia la sesion sin dejar una key de userID
+     *
+     */
+
     private void loginAnonymous() {
         mAuth.signInAnonymously()
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -85,6 +102,20 @@ public class Login extends AppCompatActivity {
         });
     }
 
+
+    /**
+     *
+     * Funcion de login via Firebase pasando como params email y password del usuario
+     *
+     * Miramos que las credenciales son correctas y si lo son, le damos acceso a la pagina principal
+     *
+     * (Ajustes.class)
+     *
+     * Sino, no tendra acceso y se queda en la pagina de Login.class
+     *
+     * @param emailUser
+     * @param passUser
+     */
     private void loginUser(String emailUser, String passUser) {
         mAuth.signInWithEmailAndPassword(emailUser, passUser).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override

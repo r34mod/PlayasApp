@@ -1,26 +1,33 @@
 package com.example.playasapp.adapters;
 
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.playasapp.Peds.Piscina;
-import com.example.playasapp.Peds.Playa;
+import com.example.playasapp.Objetos.Playa;
 import com.example.playasapp.R;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ *
+ * Clase AdapPlayas tiene los cardView de las playas que vayamos a mostrar
+ *
+ * Todos los cardView de esta clase se almacenan en un arrayList de objecto Playa
+ *
+ * Usamos el ViewHolder
+ *
+ *
+ */
+
 
 public class AdapPlayas extends RecyclerView.Adapter<AdapPlayas.PlayasHolder> {
 

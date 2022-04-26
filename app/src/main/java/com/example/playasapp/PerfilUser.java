@@ -18,6 +18,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ *
+ * Clase PerfilUser conectada a Firebase para mostrar la informacion del usuario
+ *
+ * En esta pantalla el usuario podra modificar algunos de sus datos, excepto el email
+ * ya quue es el identificador del user
+ *
+ */
+
+
 public class PerfilUser extends AppCompatActivity {
 
 

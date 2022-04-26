@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.playasapp.Peds.Playa;
+import com.example.playasapp.Objetos.Playa;
 import com.example.playasapp.R;
 import com.example.playasapp.adapters.AdapPlayas;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +25,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+/**
+ *
+ * Clase Playas que se usa como Fragmento
+ * En esta clase el fragmento crea el arrayList y el recycleView los cuales luego se mandan al
+ * adapPlayas.
+ *
+ */
 
 public class Playas extends Fragment {
 

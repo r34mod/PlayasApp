@@ -20,12 +20,25 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * Clase MapsActivity donde creamos un fragmento donde se muestra GMaps usando la API de Google.
+ *
+ * En este fragmento, se veran distintas localizaciones marcadas por el mapa.
+ *
+ *
+ *
+ */
+
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     ImageButton exit, gps;
 
 
     private GoogleMap mMap;
+
+    //Creamos un arraylist con distintas posiciones predeterminadas por la app
 
     ArrayList<LatLng> arrayList = new ArrayList<LatLng>();
     LatLng playa1 = new LatLng(41.18839097427671, 1.5923368590954228);
@@ -70,6 +83,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         startActivity(a);
     }
 
+    /**
+     *
+     * Mostramos las posiciones almacenadas en el array para que se visualicen en GMAPS de la app
+     * @param googleMap
+     */
     @Override
     public void onMapReady (GoogleMap googleMap){
         mMap = googleMap;

@@ -12,9 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.playasapp.Peds.Todo;
+import com.example.playasapp.Objetos.Todo;
 import com.example.playasapp.R;
-import com.example.playasapp.adapters.AdapPiscinas;
 import com.example.playasapp.adapters.AdapTodos;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,6 +24,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+/**
+ *
+ * Clase de fragmento all , donde obtenemos los dos obj de Playa, Piscina
+ *
+ *
+ *
+ */
 
 public class all extends Fragment {
     public all(){
