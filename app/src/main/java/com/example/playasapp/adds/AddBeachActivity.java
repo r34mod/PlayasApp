@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.playasapp.adapters.AdapPlayas;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -24,6 +27,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -42,8 +50,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class AddBeachActivity extends AppCompatActivity {
 
-    FirebaseUser fireUser = FirebaseAuth.getInstance().getCurrentUser();
-    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Playa");
+   private FirebaseFirestore mfirestore;
 
     TextView nombre, descripcion, ubicacion;
     ImageButton img_salir;
@@ -51,7 +58,7 @@ public class AddBeachActivity extends AppCompatActivity {
     Button btnAddBeach, btnDeletBeach;
     EditText nombreBeach, descripcionBeach, ubicacionBeach;
 
-    String id = fireUser.getUid();
+
 
     private RatingBar ratingBar;
     @Override
@@ -60,7 +67,7 @@ public class AddBeachActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_beach);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        mfirestore = FirebaseFirestore.getInstance();
         //FloatingActionButton fab = findViewById(R.id.fab);
        // fab.setOnClickListener(new View.OnClickListener() {
         //    @Override
@@ -79,7 +86,7 @@ public class AddBeachActivity extends AppCompatActivity {
             }
         });
 
-        reference = FirebaseDatabase.getInstance().getReference("Users");
+
 
         nombre = findViewById(R.id.nameTxt);
         nombreBeach = findViewById(R.id.nameBeach);
@@ -108,6 +115,7 @@ public class AddBeachActivity extends AppCompatActivity {
         });
 
         btnDeletBeach.setOnClickListener(v ->{
+            String id = mfirestore.collection("beach").getId();
             deleteBeach(id);
             Intent i = new Intent(AddBeachActivity.this, AdapPlayas.class);
             startActivity(i);
@@ -121,8 +129,13 @@ public class AddBeachActivity extends AppCompatActivity {
      * @param id
      */
     private void deleteBeach(String id){
-        reference = FirebaseDatabase.getInstance().getReference("Playa").child(id);
-        reference.removeValue();
+        mfirestore.collection("beach").document(id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+
+            }
+        });
+
         Toast.makeText(this, "Eliminado", Toast.LENGTH_SHORT).show();
     }
 
@@ -141,12 +154,26 @@ public class AddBeachActivity extends AppCompatActivity {
         String ubicPlaya = ubicacionBeach.getText().toString();
         String descripPlaya = descripcionBeach.getText().toString();
         float puntuacion = ratingBar.getRating();
+        Map<String, Object> map = new HashMap<>();
+        map.put("name",namePlaya);
+        map.put("ubicacionPlaya", ubicPlaya);
+        map.put("descripcionPlaya", descripPlaya);
+        map.put("puntuacionPlaya", puntuacion);
+        mfirestore.collection("beach").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Toast.makeText(getApplicationContext(), "Creado", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), "No creado", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference reference = firebaseDatabase.getReference("Playa");
-        reference.child(fireUser.getUid()).child("namePlaya").setValue(namePlaya);
-        reference.child(fireUser.getUid()).child("ubicPlaya").setValue(ubicPlaya);
-        reference.child(fireUser.getUid()).child("descripPlaya").setValue(descripPlaya);
-        reference.child(fireUser.getUid()).child("puntuacionPlaya").setValue(puntuacion);
+
+
+
     }
 }

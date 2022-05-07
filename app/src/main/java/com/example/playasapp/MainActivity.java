@@ -21,9 +21,7 @@ import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
 
 /**
  *
@@ -39,13 +37,13 @@ public class MainActivity extends AppCompatActivity {
 
     //FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     //FirebaseDatabase database = FirebaseDatabase.getInstance();
-
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mAuth = FirebaseAuth.getInstance();
         ViewPager2 view2 = findViewById(R.id.viewPage);
         view2.setAdapter(new AdapterPages(this));
 

@@ -10,16 +10,24 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.playasapp.R;
 import com.example.playasapp.adapters.AdapPiscinas;
 import com.example.playasapp.adapters.AdapPlayas;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -39,8 +47,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class AddPoolsActivity extends AppCompatActivity {
 
-    FirebaseUser fireUser = FirebaseAuth.getInstance().getCurrentUser();
-    DatabaseReference reference;
+    private FirebaseFirestore mfirestore;
 
     TextView nombre, descripcion, ubicacion;
     ImageButton img_salir;
@@ -48,7 +55,7 @@ public class AddPoolsActivity extends AppCompatActivity {
     Button btnAddPool, btnDeletPool;
     EditText nombrePool, descripcionPool, ubicacionPool;
 
-    String id = fireUser.getUid();
+
 
     private RatingBar ratingBar;
     @Override
@@ -57,7 +64,7 @@ public class AddPoolsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_pool);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        mfirestore = FirebaseFirestore.getInstance();
         //FloatingActionButton fab = findViewById(R.id.fab);
         // fab.setOnClickListener(new View.OnClickListener() {
         //    @Override
@@ -76,7 +83,7 @@ public class AddPoolsActivity extends AppCompatActivity {
             }
         });
 
-        reference = FirebaseDatabase.getInstance().getReference("Users");
+
 
         nombre = findViewById(R.id.nameTxtPool);
         nombrePool = findViewById(R.id.namePool);
@@ -105,6 +112,7 @@ public class AddPoolsActivity extends AppCompatActivity {
         });
 
         btnDeletPool.setOnClickListener(v -> {
+            String id = mfirestore.collection("pool").getId();
             deletePool(id);
             Intent i = new Intent(AddPoolsActivity.this, AdapPiscinas.class);
             startActivity(i);
@@ -112,9 +120,13 @@ public class AddPoolsActivity extends AppCompatActivity {
     }
 
         private void deletePool(String id){
-            reference = FirebaseDatabase.getInstance().getReference("Pool").child(id);
-            reference.removeValue();
-            Toast.makeText(this, "Eliminado", Toast.LENGTH_SHORT).show();
+            mfirestore.collection("pool").document(id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+
+                }
+            });
+
         }
 
 
@@ -133,16 +145,27 @@ public class AddPoolsActivity extends AppCompatActivity {
         String descripPool = descripcionPool.getText().toString();
         float puntuacion = ratingBar.getRating();
 
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference reference = firebaseDatabase.getReference("Pool");
+        Map<String, Object> map = new HashMap<>();
+        map.put("name",namePool);
+        map.put("ubicacionPool", ubicPool);
+        map.put("descripcionPool", descripPool);
+        map.put("puntuacionPool", puntuacion);
         /**Hacemos referencia a la tabla Pool, y comprobamos que la id del usuario este asociada
             a la id de la pool en concreta (child(fireUser.getUid())
 
          getUid() es la key principal del usuario!!
         */
-        reference.child(fireUser.getUid()).child("namePool").setValue(namePool);
-        reference.child(fireUser.getUid()).child("ubicPool").setValue(ubicPool);
-        reference.child(fireUser.getUid()).child("descripPool").setValue(descripPool);
-        reference.child(fireUser.getUid()).child("puntuacionPool").setValue(puntuacion);
+        mfirestore.collection("beach").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Toast.makeText(getApplicationContext(), "Creado", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), "No creado", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
