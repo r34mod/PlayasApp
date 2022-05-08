@@ -86,7 +86,7 @@ public class InfoActivity extends AppCompatActivity {
         OnBoardItem itemBoardPlaya = new OnBoardItem();
         itemBoardPlaya.setTitulo("Consulta tu chapuzon favorito");
         itemBoardPlaya.setDescripcion("Puedes visualizar las playas, piscinas, lagos... mejores de tu zona \uD83D\uDCAC");
-        itemBoardPlaya.setImagen(R.drawable.beach);
+        itemBoardPlaya.setImagen(R.drawable.beachs);
 
 
         OnBoardItem itemBoardPiscina = new OnBoardItem();
