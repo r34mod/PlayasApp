@@ -89,6 +89,14 @@ public class Ajustes extends AppCompatActivity {
                     return false;
                 });
 
+        navigationView.getMenu().findItem(R.id.nav_map).setOnMenuItemClickListener(
+                (MenuItem)->{
+                    Intent a = new Intent(Ajustes.this, MapsActivity.class);
+                    startActivity(a);
+                    return false;
+                }
+        );
+
         navigationView.getMenu().findItem(R.id.nav_profile).setOnMenuItemClickListener(
                 (menuItem)->{
                     Intent b = new Intent(Ajustes.this, PerfilUser.class);
@@ -152,7 +160,7 @@ public class Ajustes extends AppCompatActivity {
      */
 
     private void sessionCerrada(){
-        Intent i = new Intent(this, Login.class);
+        Intent i = new Intent(this, Register.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
     }

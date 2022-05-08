@@ -92,13 +92,13 @@ public class InfoActivity extends AppCompatActivity {
         OnBoardItem itemBoardPiscina = new OnBoardItem();
         itemBoardPiscina.setTitulo("Consulta tu chapuzon favorito");
         itemBoardPiscina.setDescripcion("Puedes visualizar las playas, piscinas, lagos... mejores de tu zona \uD83D\uDCAC");
-        itemBoardPiscina.setImagen(R.drawable.ic_swimming_pool);
+        itemBoardPiscina.setImagen(R.drawable.pool);
 
 
         OnBoardItem itemBoardAll = new OnBoardItem();
-        itemBoardAll.setTitulo("Consulta tu chapuzon favorito");
+        itemBoardAll.setTitulo("Localiza las playas");
         itemBoardAll.setDescripcion("Puedes visualizar las playas, piscinas, lagos... mejores de tu zona \uD83D\uDCAC");
-        itemBoardAll.setImagen(R.drawable.ic_home);
+        itemBoardAll.setImagen(R.drawable.unknown);
 
 
         OnBoardItem itemBoardLast = new OnBoardItem();

@@ -85,6 +85,11 @@ public class Login extends AppCompatActivity {
      */
 
     private void loginAnonymous() {
+        //FORZAMOS POR AHORA LA ENTRADA ANONIMA
+        Intent i = new Intent(this, Ajustes.class);
+        startActivity(i);
+
+        //SE QUEDARA CON UN ID GENERADO DE LA BBDD
         mAuth.signInAnonymously()
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -97,7 +102,7 @@ public class Login extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Login.this, "Error al acceder", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this, "", Toast.LENGTH_SHORT).show();
             }
         });
     }

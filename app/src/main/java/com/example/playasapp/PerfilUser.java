@@ -52,15 +52,15 @@ public class PerfilUser extends AppCompatActivity {
         nombreUser = findViewById(R.id.nombre_user);
         btnSalir = findViewById(R.id.btn_salir);
 
-        nombreUser.setText("fireuser.getDisplayName()");
-        emailUser.setText("fireuser.getEmail()");
+        nombreUser.setText("Juana");
+        emailUser.setText("Juana@gmail.com");
 
 
         //Glade.with
 
 
         btnSalir.setOnClickListener((view)->{
-            Intent i = new Intent(PerfilUser.this, MainActivity.class);
+            Intent i = new Intent(PerfilUser.this, Ajustes.class);
             startActivity(i);
             Toast.makeText(this, "SALIENDO DEL PERFIL", Toast.LENGTH_SHORT).show();
         });

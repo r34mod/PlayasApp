@@ -59,6 +59,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         arrayList.add(playa3);
         arrayList.add(piscina1);
 
+        exit = findViewById(R.id.exitMap);
+        gps = findViewById(R.id.gps);
 
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +68,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 main();
             }
         });
+
 
         gps.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +82,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void main() {
-        Intent a = new Intent(this, MainActivity.class);
+        Intent a = new Intent(this, Ajustes.class);
         startActivity(a);
     }
 
