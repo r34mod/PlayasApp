@@ -64,6 +64,7 @@ public class Login extends AppCompatActivity {
                 if (phoneUser.isEmpty() && passUser.isEmpty()){
                     Toast.makeText(Login.this, "Ingresar los datos", Toast.LENGTH_SHORT).show();
                 }else{
+                    startActivity(new Intent(Login.this, Ajustes.class));
                    databaseReference.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
                        @Override
                        public void onDataChange(@NonNull DataSnapshot snapshot) {

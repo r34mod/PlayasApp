@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.playasapp.Objetos.Playa;
 import com.example.playasapp.PlayasDB.Beachs;
 import com.example.playasapp.R;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class AdapPlayas extends RecyclerView.Adapter<AdapPlayas.PlayasHolder> {
     private Context context;
     private List<Playa> playa;
     ThumbListener modelView;
+    FirebaseUser firebaseUser;
 
 
 
@@ -80,7 +82,6 @@ public class AdapPlayas extends RecyclerView.Adapter<AdapPlayas.PlayasHolder> {
 
         void onComments(Playa playa);
 
-        void onThumb(Beachs beachs);
     }
 
     public class PlayasHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

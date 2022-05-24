@@ -52,10 +52,11 @@ public class Register extends AppCompatActivity {
         this.setTitle("Registro");
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
+        phone = findViewById(R.id.phone);
         name = findViewById(R.id.nombre);
         email = findViewById(R.id.correo);
         password = findViewById(R.id.contrasena);
+
         btn_register = findViewById(R.id.btn_registro);
 
         btn_register.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +71,8 @@ public class Register extends AppCompatActivity {
                 if(nameUser.isEmpty() || emailUser.isEmpty() || passUser.isEmpty()){
                     Toast.makeText(Register.this, "Error de datos", Toast.LENGTH_SHORT).show();
                 }
+
+                startActivity(new Intent(Register.this, Login.class));
 
                 databaseReference.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
