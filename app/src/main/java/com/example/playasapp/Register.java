@@ -42,7 +42,7 @@ public class Register extends AppCompatActivity {
 
     Button btn_register;
     EditText name, email, password, phone;
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://proyectoplayas-6aaa0-default-rtdb.europe-west1.firebasedatabase.app/");
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
     @Override

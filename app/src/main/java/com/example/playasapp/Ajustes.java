@@ -92,6 +92,12 @@ public class Ajustes extends AppCompatActivity {
                     return false;
                 });
 
+        navigationView.getMenu().findItem(R.id.nav_loca).setOnMenuItemClickListener((menuItem)->{
+            Intent a = new Intent(Ajustes.this, LocationPlayas.class);
+            startActivity(a);
+            return false;
+        });
+
         navigationView.getMenu().findItem(R.id.nav_map).setOnMenuItemClickListener(
                 (MenuItem)->{
                     Intent a = new Intent(Ajustes.this, MapsActivity.class);
