@@ -1,10 +1,5 @@
 package com.example.playasapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.widget.ViewPager2;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,15 +7,26 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.example.playasapp.Objetos.Playa;
 import com.example.playasapp.adapters.AdapterPages;
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 /**
@@ -35,35 +41,39 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
-    //FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-    //FirebaseDatabase database = FirebaseDatabase.getInstance();
-    FirebaseAuth mAuth;
+    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference ref_playa = database.getReference("Playas").child(firebaseUser.getUid());
+    DatabaseReference ref_piscina = database.getReference("Piscinas").child(firebaseUser.getUid());
+    FirebaseFirestore db;
+
+    //FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        db = FirebaseFirestore.getInstance();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mAuth = FirebaseAuth.getInstance();
+        //mAuth = FirebaseAuth.getInstance();
         ViewPager2 view2 = findViewById(R.id.viewPage);
         view2.setAdapter(new AdapterPages(this));
 
         final TabLayout tabLayout = findViewById(R.id.tabla);
-        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, view2, (tab, position) -> {
-            switch (position){
-                case 0:
-                    tab.setText("Playas");
-                    tab.setIcon(R.drawable.ic_beach);
-                    break;
-                case 1:
-                    tab.setText("Piscinas");
-                    tab.setIcon(R.drawable.ic_swimming_pool);
-                    break;
-                case 2:
-                    tab.setText("Todo");
-                    tab.setIcon(R.drawable.ic_swim);
-                    break;
-
-
+        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, view2, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                switch (position){
+                    case 0:
+                        tab.setText("Playas");
+                        tab.setIcon(R.drawable.ic_swim);
+                        break;
+                    case 1:
+                        tab.setText("Piscinas");
+                        tab.setIcon(R.drawable.ic_swimming_pool);
+                        break;
+                }
             }
         });
 
@@ -79,9 +89,44 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_logout, menu);
+        return true;
+    }
+
+
+    private void playa(){
+        ref_playa.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!snapshot.exists()){
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
     /**
      *
      * Funcion de la creacion del menu lateral de la clase Ajustes
@@ -92,11 +137,7 @@ public class MainActivity extends AppCompatActivity {
      * @return
      */
 
-    public boolean onCreateOptionMenu(Menu menu){
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.activity_main_drawer, menu);
-        return true;
-    }
+
 
 
     /**

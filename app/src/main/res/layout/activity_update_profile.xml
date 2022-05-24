@@ -45,9 +45,11 @@
             android:id="@+id/btn_salir"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
             android:background="@drawable/ic_salir">
 
         </ImageButton>
@@ -89,6 +91,7 @@
                     android:id="@+id/nameUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Escribe un nombre"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 

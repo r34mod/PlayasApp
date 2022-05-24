@@ -29,8 +29,8 @@ public interface PlayaDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(List<Beachs> modelList);
 
-    @Query("SELECT * from beachs WHERE latlon=:latlong")
-    LiveData<List<Beachs>> getAllModel(String latlong);
+    @Query("SELECT * from beachs WHERE beachsId= :beachsId")
+    LiveData<List<Beachs>> getAllModel(String beachsId);
 
     @Query("DELETE from beachs")
     void deleteAll();

@@ -16,6 +16,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -35,9 +41,9 @@ import java.util.Map;
 public class Register extends AppCompatActivity {
 
     Button btn_register;
-    EditText name, email, password;
-    FirebaseFirestore mFirestore;
-    FirebaseAuth mAuth;
+    EditText name, email, password, phone;
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://proyectoplayas-6aaa0-default-rtdb.europe-west1.firebasedatabase.app/");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +52,6 @@ public class Register extends AppCompatActivity {
         this.setTitle("Registro");
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mFirestore = FirebaseFirestore.getInstance();
-        mAuth = FirebaseAuth.getInstance();
 
         name = findViewById(R.id.nombre);
         email = findViewById(R.id.correo);
@@ -60,12 +64,36 @@ public class Register extends AppCompatActivity {
                 String nameUser = name.getText().toString().trim();
                 String emailUser = email.getText().toString().trim();
                 String passUser = password.getText().toString().trim();
+                String phoneUser = phone.getText().toString().trim();
 
-                if (nameUser.isEmpty() && emailUser.isEmpty() && passUser.isEmpty()){
-                    Toast.makeText(Register.this, "Complete los datos", Toast.LENGTH_SHORT).show();
-                }else{
-                    registerUser(nameUser, emailUser, passUser);
+
+                if(nameUser.isEmpty() || emailUser.isEmpty() || passUser.isEmpty()){
+                    Toast.makeText(Register.this, "Error de datos", Toast.LENGTH_SHORT).show();
                 }
+
+                databaseReference.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.hasChild(phoneUser)){
+                            Toast.makeText(Register.this, "Telefono registrado", Toast.LENGTH_SHORT).show();
+                        }else{
+                            databaseReference.child("user").child(phoneUser).child("nombre").setValue(nameUser);
+                            databaseReference.child("user").child(phoneUser).child("email").setValue(emailUser);
+                            databaseReference.child("user").child(phoneUser).child("password").setValue(passUser);
+                            Toast.makeText(Register.this, "Registrado", Toast.LENGTH_SHORT).show();
+                            finish();
+                            startActivity(new Intent(Register.this, Login.class));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+
             }
         });
     }
@@ -78,43 +106,9 @@ public class Register extends AppCompatActivity {
      *
      * Con este id del usuario, se crea una columna en Firebase con sus datos
      *
-     * @param nameUser
-     * @param emailUser
-     * @param passUser
-     */
+    */
 
-    private void registerUser(String nameUser, String emailUser, String passUser) {
-        mAuth.createUserWithEmailAndPassword(emailUser, passUser).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                String id = mAuth.getCurrentUser().getUid();
-                Map<String, Object> map = new HashMap<>();
-                map.put("id", id);
-                map.put("name", nameUser);
-                map.put("email", emailUser);
-                map.put("password", passUser);
 
-                mFirestore.collection("user").document(id).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        finish();
-                        startActivity(new Intent(Register.this, Login.class));
-                        Toast.makeText(Register.this, "Usuario registrado con éxito", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Register.this, "Error al guardar", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Register.this, "Error al registrar", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     @Override
     public boolean onSupportNavigateUp() {

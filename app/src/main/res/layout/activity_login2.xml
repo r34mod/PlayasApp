@@ -38,11 +38,11 @@
                 android:layout_height="20dp" />
 
             <EditText
-                android:id="@+id/correo"
+                android:id="@+id/phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Correo"
+                android:hint="Telefono"
                 android:inputType="textPersonName" />
 
             <EditText
@@ -75,6 +75,14 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="#008989"
                 android:text="Visitante"
+                android:textSize="12sp"
+                app:cornerRadius="50dp" />
+            <Button
+                android:id="@+id/btn_google"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#12ABFF"
+                android:text="Google/Facebook"
                 android:textSize="12sp"
                 app:cornerRadius="50dp" />
         </LinearLayout>

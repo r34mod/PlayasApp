@@ -15,6 +15,7 @@ import androidx.lifecycle.Transformations;
 
 
 import com.example.playasapp.PlayasDB.Beachs;
+import com.example.playasapp.Repositorio.BeachRepositorio;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,7 +38,7 @@ import java.util.List;
  */
 
 public class ModelsLocation extends AndroidViewModel implements LocationListener {
-    public final LocationRepositorio locationRepositorio;
+    public final BeachRepositorio locationRepositorio;
 
     String client_id = "BMRA0OSIBFAMQ3BB253NLRK24HMER2PDWMO4BWKKKKJGOD1E";
     String client_secret = "T3K2YNMKHVWGAKGAJNTP44P0STB1IQRON50JDAKYY0ABPYA1";
@@ -58,7 +59,7 @@ public class ModelsLocation extends AndroidViewModel implements LocationListener
 
     public ModelsLocation(@NonNull Application application){
         super(application);
-        locationRepositorio = new LocationRepositorio(application);
+        locationRepositorio = new BeachRepositorio(application);
         playasLocation = Transformations.switchMap(latlon, new Function<String, LiveData<List<Beachs>>>() {
             @Override
             public LiveData<List<Beachs>> apply(String input) {

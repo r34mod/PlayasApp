@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.playasapp.Objetos.Playa;
+import com.example.playasapp.PlayasDB.Beachs;
 import com.example.playasapp.R;
 
 import java.util.ArrayList;
@@ -37,11 +38,16 @@ public class AdapPlayas extends RecyclerView.Adapter<AdapPlayas.PlayasHolder> {
 
 
 
-    public AdapPlayas(ArrayList<Playa> playaArrayList, Context context) {
-        this.playa = playaArrayList;
+    public AdapPlayas(Context context, ArrayList<Playa> playa, ThumbListener modelView) {
         this.context = context;
+        this.playa = playa;
+        this.modelView = modelView;
     }
 
+    public AdapPlayas(ArrayList<Playa> playaArrayList, Context context) {
+        this.context = context;
+        this.playa = playa;
+    }
 
 
     @NonNull
@@ -73,6 +79,8 @@ public class AdapPlayas extends RecyclerView.Adapter<AdapPlayas.PlayasHolder> {
         void onThumb(Playa playa);
 
         void onComments(Playa playa);
+
+        void onThumb(Beachs beachs);
     }
 
     public class PlayasHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

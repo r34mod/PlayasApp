@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  *
@@ -28,9 +34,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
 
-    Button btn_login, btn_register, btn_login_anonymous;
-    EditText email, password;
-    FirebaseAuth mAuth;
+    Button btn_login, btn_register, btn_login_anonymous, btn_google;
+    EditText password, phone;
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://proyectoplayas-6aaa0-default-rtdb.europe-west1.firebasedatabase.app/");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,24 +44,43 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login2);
         this.setTitle("Login");
 
-        mAuth = FirebaseAuth.getInstance();
 
-        email = findViewById(R.id.correo);
+
+        phone = findViewById(R.id.phone);
         password = findViewById(R.id.contrasena);
         btn_login = findViewById(R.id.btn_ingresar);
         btn_register = findViewById(R.id.btn_register);
         btn_login_anonymous = findViewById(R.id.btn_anonymous);
+        btn_google = findViewById(R.id.btn_google);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String emailUser = email.getText().toString().trim();
+                String phoneUser = phone.getText().toString().trim();
+
                 String passUser = password.getText().toString().trim();
 
-                if (emailUser.isEmpty() && passUser.isEmpty()){
+                if (phoneUser.isEmpty() && passUser.isEmpty()){
                     Toast.makeText(Login.this, "Ingresar los datos", Toast.LENGTH_SHORT).show();
                 }else{
-                    loginUser(emailUser, passUser);
+                   databaseReference.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
+                       @Override
+                       public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                           if(snapshot.hasChild(phoneUser)){
+                               final String pwd = snapshot.child(phoneUser).child("password").getValue(String.class);
+                               if(pwd.equals(passUser)){
+                                   Toast.makeText(Login.this, "Success", Toast.LENGTH_SHORT).show();
+                                   startActivity(new Intent(Login.this, Ajustes.class));
+                               }
+                           }
+                       }
+
+                       @Override
+                       public void onCancelled(@NonNull DatabaseError error) {
+
+                       }
+                   });
                 }
             }
         });
@@ -71,6 +96,13 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 loginAnonymous();
+            }
+        });
+
+        btn_google.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Login.this, LoginPrueba.class));
             }
         });
     }
@@ -89,22 +121,7 @@ public class Login extends AppCompatActivity {
         Intent i = new Intent(this, Ajustes.class);
         startActivity(i);
 
-        //SE QUEDARA CON UN ID GENERADO DE LA BBDD
-        mAuth.signInAnonymously()
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            startActivity(new Intent(Login.this, Ajustes.class));
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Login.this, "", Toast.LENGTH_SHORT).show();
-            }
-        });
+
     }
 
 
@@ -121,34 +138,6 @@ public class Login extends AppCompatActivity {
      * @param emailUser
      * @param passUser
      */
-    private void loginUser(String emailUser, String passUser) {
-        mAuth.signInWithEmailAndPassword(emailUser, passUser).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    finish();
-                    startActivity(new Intent(Login.this, Ajustes.class));
-                    Toast.makeText(Login.this, "Bienvenido", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(Login.this, "Error", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Login.this, "Error al inciar sesión", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user != null){
-            startActivity(new Intent(Login.this, Ajustes.class));
-            finish();
-        }
-    }
 
 }

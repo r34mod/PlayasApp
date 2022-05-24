@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -40,6 +41,8 @@ public class Ajustes extends AppCompatActivity {
 
     FirebaseAuth mAuth;
 
+    FirebaseUser fireUser = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
 
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -75,7 +78,7 @@ public class Ajustes extends AppCompatActivity {
                 (menuItem)->{
                     FirebaseAuth.getInstance().signOut();
                     Toast.makeText(Ajustes.this, "Sesion cerrada", Toast.LENGTH_SHORT).show();
-                    Intent a = new Intent(Ajustes.this, MainActivity.class);
+                    Intent a = new Intent(Ajustes.this, Login.class);
                     a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(a);
 
@@ -191,8 +194,9 @@ public class Ajustes extends AppCompatActivity {
         ImageView userphoto = header.findViewById(R.id.imgUser);
 
         //fireuser
-        username.setText("Juana");
-        email.setText("juana@juana.com");
+        username.setText(fireUser.getDisplayName());
+        email.setText(fireUser.getEmail());
+        //Glide.with(this).load(fireUser.getPhotoUrl()).into(userphoto);
         //Glide.with(this).load("jj");
     }
 

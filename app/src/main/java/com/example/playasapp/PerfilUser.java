@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.playasapp.clases.Users;
 import com.example.playasapp.Login;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,7 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class PerfilUser extends AppCompatActivity {
 
-
+    FirebaseUser fireUser = FirebaseAuth.getInstance().getCurrentUser();
     DatabaseReference reference;
     EditText nameUser, photoEdit, emailEdit;
     TextView emailUser,nombreUser;
@@ -51,11 +52,14 @@ public class PerfilUser extends AppCompatActivity {
         emailUser = findViewById(R.id.txtEmailUser);
         nombreUser = findViewById(R.id.nombre_user);
         btnSalir = findViewById(R.id.btn_salir);
+        photoUser = findViewById(R.id.photoUser);
 
-        nombreUser.setText("Juana");
-        emailUser.setText("Juana@gmail.com");
+        nombreUser.setText(fireUser.getDisplayName());
+        emailUser.setText(fireUser.getEmail());
 
 
+
+        Glide.with(this).load(R.drawable.cangrejo).into(photoUser);
         //Glade.with
 
 
@@ -74,6 +78,7 @@ public class PerfilUser extends AppCompatActivity {
         });
 
         btnUpdate.setOnClickListener((view)->{
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(fireUser.getUid());
             String txtName = nameUser.getText().toString();
             //FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
             //DatabaseReference databaseReference = firebaseDatabase.getReference("Users");

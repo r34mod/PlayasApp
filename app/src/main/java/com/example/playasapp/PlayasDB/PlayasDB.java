@@ -23,11 +23,13 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
  */
 
 
-@Database(entities = {Beachs.class}, version=2, exportSchema = false)
+@Database(entities = {Beachs.class, ReviewModel.class}, version=2, exportSchema = false)
 public abstract class PlayasDB extends RoomDatabase {
     private static final String DATABASE_NAME = "PlayaDB";
 
     public abstract PlayaDao playaDao();
+
+    public abstract ReviewDao reviewDao();
 
     private static volatile PlayasDB INSTANCE;
 
